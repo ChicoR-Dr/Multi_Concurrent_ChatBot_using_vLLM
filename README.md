@@ -26,7 +26,7 @@ This project is a lightweight, production-ready chatbot interface powered by the
 ## 🛠️ Requirements
 
 - Docker + Docker Compose  
-- Optional: NVIDIA GPU with drivers (`nvidia-smi` working and watch -n0.1 nvidia-smi for continous usage display)  
+- Optional: NVIDIA GPU with drivers (`nvidia-smi` working)  
 - (For GPU use) NVIDIA Container Toolkit  
 
 ## 🧪 Quickstart with Docker Compose
@@ -34,8 +34,8 @@ This project is a lightweight, production-ready chatbot interface powered by the
 Clone the repo:
 
 ```bash
-git clone https://github.com/your-org/vllm-chatbot.git
-cd vllm-chatbot
+git clone https://github.com/your-org/Simple_LLM_ChatBot_using_vLLM.git
+cd Simple_LLM_ChatBot_using_vLLM
 ```
 
 Update the model path (if needed) in `docker-compose.yml`:
@@ -108,15 +108,10 @@ Use `kubectl apply -f` to deploy each one.
 docker compose down
 ```
 
----
+## 📜 License
 
-## 👨‍💻 Author
+MIT License. See `LICENSE`.
 
-Chinmay @ Cognisyn Labs  
-🔬 https://cognisynlabs.com/
+## 🙋‍♀️ Questions?
 
----
-
-## 🧪 License
-
-MIT License
+Feel free to open an issue or reach out at [your-email@example.com].
