@@ -1,114 +1,112 @@
-# 🚀 LLM Training Optimization Projects
+# 🧠 vLLM Multi-Concurrent Chatbot with FastAPI UI
 
-This repository demonstrates two efficient methods for fine-tuning Large Language Models (LLMs) using:
-
-- ⚡️ **DeepSpeed** with Transformers and PEFT (QLoRA)
-- 🐍 **Unsloth**: An ultra-fast LoRA/QLoRA trainer
-
-Each method is encapsulated in its own directory with training scripts and configs.
+This project is a lightweight, production-ready chatbot interface powered by the [vLLM inference engine](https://github.com/vllm-project/vllm). It supports multi-concurrent generation and runs the backend and frontend as separate Docker containers.
 
 ---
 
-## 📁 Project Structure
+## 📦 Project Structure
 
 ```
-LLM-Training_Optimization/
-│
-├── deepspeed/               # Fine-tuning with DeepSpeed + QLoRA
-│   ├── train.py
-│   ├── config/
-│   │   └── deepspeed_config.json
-│   └── README.md
-│
-├── unsloth/                 # Fine-tuning with Unsloth + QLoRA
-│   ├── train.py
-│   └── README.md
-│
-└── README.md                # This file
+.
+├── backend/           # vLLM backend for fast LLM inference
+│   └── Dockerfile
+├── ui/                # FastAPI-based UI service
+│   └── Dockerfile
+├── docker-compose.yml
+└── README.md
 ```
 
----
+## 🚀 Features
 
-## ✅ Dataset
+- 🔁 Multi-concurrency support with vLLM engine  
+- ⚡ GPU acceleration (if available)  
+- 🔌 Modular: UI and backend run as separate containers  
+- 🐳 Dockerized for local or production use  
 
-Both projects use the [Alpaca dataset](https://huggingface.co/datasets/tatsu-lab/alpaca) for demonstration. You can change the dataset in `train.py`.
+## 🛠️ Requirements
 
----
+- Docker + Docker Compose  
+- Optional: NVIDIA GPU with drivers (`nvidia-smi` working and watch -n0.1 nvidia-smi for continous usage display)  
+- (For GPU use) NVIDIA Container Toolkit  
 
-## 🧠 Base Model
+## 🧪 Quickstart with Docker Compose
 
-These examples use [TinyLlama-1.1B-Chat-v1.0](https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0), a 1.1B parameter instruction-tuned model, suitable for low-resource fine-tuning.
-
----
-
-## 🛠 Requirements
-
-Install the required libraries in a fresh environment:
+Clone the repo:
 
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/your-org/vllm-chatbot.git
+cd vllm-chatbot
 ```
 
-Here's a minimal example `requirements.txt`:
+Update the model path (if needed) in `docker-compose.yml`:
 
-```text
-transformers
-datasets
-peft
-accelerate
-deepspeed
-unsloth
+```yaml
+volumes:
+  - ./models:/app/models
 ```
 
----
-
-## 📦 How to Use
-
-### ➤ DeepSpeed Training
+Launch both UI and backend:
 
 ```bash
-cd deepspeed
-deepspeed train.py \
-  --deepspeed config/deepspeed_config.json \
-  --model_name_or_path TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
-  --dataset_name tatsu-lab/alpaca \
-  --per_device_train_batch_size 4 \
-  --gradient_accumulation_steps 4 \
-  --bf16 True \
-  --output_dir outputs/
+docker compose up --build
 ```
 
-> See [`deepspeed/README.md`](./deepspeed/README.md) for full instructions.
+Access the chatbot UI:
 
----
+Open your browser and go to http://localhost:7860
 
-### ➤ Unsloth Training
+## 🐳 Docker Compose Overview
+
+```yaml
+services:
+  vllm-backend:
+    image: chinmay555/vllm:latest
+    ports:
+      - 8000:8000
+
+  fastapi-ui:
+    image: chinmay555/chat-ui:latest
+    ports:
+      - 7860:7860
+```
+
+## ⚙️ Environment Variables
+
+You can configure the following via `.env` or hardcode in `docker-compose.yml`:
+
+- `MODEL_PATH`: Path to your HF model (e.g., TinyLlama/TinyLlama-1.1B-Chat)  
+- `PORT`: Backend port (default: 8000)  
+
+## 🧑‍💻 API Usage
+
+The FastAPI backend serves standard endpoints like:
 
 ```bash
-cd unsloth
-python train.py
+POST /generate
+GET  /health
 ```
 
-> See [`unsloth/README.md`](./unsloth/README.md) for full instructions.
+To test:
 
----
+```bash
+curl -X POST http://localhost:8000/generate -d '{"prompt": "Tell me a joke"}'
+```
 
-## 📤 Output
+## ☸️ (Optional) Kubernetes Deployment
 
-Each script saves the fine-tuned model in:
+If you'd like to run this stack on Kubernetes instead of Docker Compose, you can use the following files:
 
-- `./deepspeed/outputs/`
-- `./unsloth/unsloth_tinyllama-qlora/peft/`
+- `vllm-deployment.yaml`
+- `ui-service.yaml`
+- `gpu-operator.yaml` (for GPU support)
 
-These can be pushed to 🤗 Hub or used for inference.
+Use `kubectl apply -f` to deploy each one.
 
----
+## 🧼 Cleanup
 
-## 📘 Notes
-
-- Both use **QLoRA** (4-bit quantization + LoRA).
-- Suitable for training on a **single GPU with ~16 GB VRAM**.
-- You can extend either script for more epochs, larger datasets, or custom prompts.
+```bash
+docker compose down
+```
 
 ---
 
