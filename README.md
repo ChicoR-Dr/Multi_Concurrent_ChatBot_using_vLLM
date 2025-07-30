@@ -42,8 +42,8 @@ This project is a lightweight, production-ready chatbot interface powered by the
 Clone the repo:
 
 ```bash
-git clone https://github.com/your-org/Simple_LLM_ChatBot_using_vLLM.git
-cd Simple_LLM_ChatBot_using_vLLM
+git clone https://github.com/your-org/Multi_Concurrent_ChatBot_using_vLLM.git
+cd Multi_Concurrent_ChatBot_using_vLLM
 ```
 
 Update the model path (if needed) in `docker-compose.yml`:
