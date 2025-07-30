@@ -8,7 +8,7 @@ This project is a lightweight, production-ready chatbot interface powered by the
 
 ```
 .
-├── backend/           # vLLM backend for fast LLM inference
+├── vllm/           # vLLM backend for fast LLM inference
 │   └── Dockerfile
 ├── ui/                # FastAPI-based UI service
 │   └── Dockerfile
