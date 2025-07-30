@@ -1,0 +1,4 @@
+# requirements.txt (for both vllm and httpx)
+vllm
+httpx
+

@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  vllm:
+    build:
+      context: ./vllm          # Uses vllm/Dockerfile
+    container_name: vllm_server
+    ports:
+      - "8000:8000"            # Host port 8000 → Container port 8000
+    volumes:
+      - ./vllm/models:/app/models/
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    runtime: nvidia           # Note: this is deprecated in newer Docker versions, see note below
+
+  ui:
+    build:
+      context: ./ui            # Uses ui/Dockerfile
+    container_name: fastapi_ui
+    ports:
+      - "7860:7860"            # Host port 7860 → Container port 7860
+    depends_on:
+      - vllm
+    environment:
+      - VLLM_API_URL=http://vllm:8000  # Talk to vLLM via Docker DNS
+    restart: unless-stopped
+

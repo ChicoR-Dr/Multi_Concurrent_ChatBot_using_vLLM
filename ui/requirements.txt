@@ -1,0 +1,5 @@
+# requirements.txt (for both FastAPI API and Streamlit UI)
+fastapi
+uvicorn
+requests
+

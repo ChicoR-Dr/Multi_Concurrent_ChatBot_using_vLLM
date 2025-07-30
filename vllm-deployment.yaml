@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vllm
+  template:
+    metadata:
+      labels:
+        app: vllm
+    spec:
+      containers:
+        - name: vllm-container
+          image: chinmay555/vllm:latest  # Replace with actual built image or image from registry
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: model-volume
+              mountPath: /app/models/
+          resources:
+            limits:
+              nvidia.com/gpu: 1  # Requires NVIDIA device plugin installed
+      volumes:
+        - name: model-volume
+          hostPath:
+            path: /home/chinmay/Desktop/Cognisynlabs/Products/Simple_chatbot_deployed/Deployed_Chatbot/vllm/models  # Update to your host path
+            type: Directory
+

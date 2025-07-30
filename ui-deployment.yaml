@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-ui
+  template:
+    metadata:
+      labels:
+        app: fastapi-ui
+    spec:
+      containers:
+        - name: ui-container
+          image: chinmay555/fastapi-ui:latest  # Replace with your actual image
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7860
+          env:
+            - name: VLLM_API_URL
+              value: http://vllm:8000  # Use internal DNS name of vLLM service
+
