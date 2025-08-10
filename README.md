@@ -137,6 +137,7 @@ kubectl delete -f .
 
 Chinmay @ Cognisyn Labs  
 🔬 https://cognisynlabs.com/
+
 chinmayatcognisynlabs@gmail.com
 
 ---
