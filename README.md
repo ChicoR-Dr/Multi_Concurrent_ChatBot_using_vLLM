@@ -33,7 +33,7 @@ This project is a lightweight, production-ready chatbot interface powered by the
 ## 🛠️ Requirements
 
 - Docker + Docker Compose  
-- Optional: NVIDIA GPU with drivers (`nvidia-smi` working and watch -n0.1 nvidia-smi for continous usage display)  
+- Optional: NVIDIA GPU with drivers (`nvidia-smi` working and `watch -n0.1 nvidia-smi` for continous usage display)  
 - (For GPU use) [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)  
 - (For K8s use) A working Kubernetes cluste 
 
