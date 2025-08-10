@@ -136,10 +136,8 @@ kubectl delete -f .
 ## 👨‍💻 Author
 
 Chinmay @ Cognisyn Labs  
-🔬 https://cognisynlabs.com/
-
-chinmayatcognisynlabs@gmail.com
-
+- 🔬 https://cognisynlabs.com/
+- chinmayatcognisynlabs@gmail.com
 ---
 
 ## 🧪 License
